@@ -1,0 +1,67 @@
+---
+title: "Computer Support Practical Tasks"
+date: "11/22/2022"
+format: html
+editor: source
+---
+
+## Introduction
+
+For performing practical tasks **R** and **R Studio** have to be installed.
+
+Links for downloading programs: 
+
+1. R: <https://cran.r-project.org/>
+
+2. R Studio: <https://posit.co/download/rstudio-desktop/>
+
+The results of laboratory work must be placed in your repository on Github in the files `LabX.Rmd` (or `LabX.qmd` if you prefer to use quarto) and generated from it `LabX.html`, where X is the number of the laboratory in the form: **question**, **code**, **result** (if necessary). So, the file structure could looks like:
+
+```
+--ComputerSupportSTU
+  |--Lab1.Rmd
+  |--Lab1.html
+```
+
+
+Example of output:
+
+1.  Print rownames of dataset `mtcars`.
+
+```{r}
+row.names(mtcars)
+```
+
+## Task 0
+
+1.  Create Github accout
+2.  Create new repository "ComputerSupportSTU"
+3.  In readme.md file add title a short repository description
+
+## Task 1
+
+1. Create variables with all atomic types. Atomic types: `character`, `numeric`, `integer`, `complex`, `logical`.
+
+2. Create the next vectors:
+  * sequence from 5 to 75;
+  * numbers: 3.14, 2.71, 0, 13;
+  * with 100 `TRUE` values.
+
+3. Create the next matrix:
+
+|  |   |  |
+|:---:|:-----:|:---:|
+| 12  | 34    | 87  |
+| -12 | -12.1 | 0   |
+| 3.6 | 0.5   | 1.3 |
+
+4. Create a `list` with all atomic types.
+
+5. Create a `factor` with 3 levels: `infant`, `child`, `adult`.
+
+6. Create a `data frame`
+
+7. Change column names of the `data frame`.
+
+
+
