@@ -63,5 +63,38 @@ row.names(mtcars)
 
 7. Change column names of the `data frame`.
 
+## Task 2
+
+For this task you have to use dataset from file `airquality.csv`. The description of the data you can find by the [link](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/airquality).
+
+Example, how to work with the dataset. For instanse, we want to find month (column `Month`) with the highest mean temperature (`Temp`)
+
+
+```{r message=FALSE}
+library(dplyr)
+
+airquality |> 
+  group_by(Month) |> 
+  summarise(mean_temp = mean(Temp)) |> 
+  filter(mean_temp == max(mean_temp))
+```
+
+You task is to answer the following questions about this data by writing appropriate code.
+
+1. What are the column names of the data frame?
+
+2. What are the row names of the data frame?
+
+3. Extract the first 6 rows of the data frame and print them to the console
+
+4. How many observations (i.e. rows) are in this data frame?
+
+5. Extract the last 6 rows of the data frame and print them to the console
+
+6. How many missing values are in the "Ozone" column of this data frame?
+
+7. What is the mean of the "Ozone" column in this dataset? Exclude missing values (coded as NA) from this calculation.
+
+8. Extract the subset of rows of the data frame where Ozone values are above 31 and Temp values are above 90.
 
 

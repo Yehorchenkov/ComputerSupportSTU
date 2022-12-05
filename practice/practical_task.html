@@ -211,6 +211,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Change column names of the <code>data frame</code>.</p></li>
 </ol>
 </section>
+<section id="task-2" class="level2">
+<h2 class="anchored" data-anchor-id="task-2">Task 2</h2>
+<p>For this task you have to use dataset from file <code>airquality.csv</code>. The description of the data you can find by the <a href="https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/airquality">link</a>.</p>
+<p>Example, how to work with the dataset. For instanse, we want to find month (column <code>Month</code>) with the highest mean temperature (<code>Temp</code>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month) <span class="sc">|&gt;</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_temp =</span> <span class="fu">mean</span>(Temp)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mean_temp <span class="sc">==</span> <span class="fu">max</span>(mean_temp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  Month mean_temp
+  &lt;int&gt;     &lt;dbl&gt;
+1     8      84.0</code></pre>
+</div>
+</div>
+<p>You task is to answer the following questions about this data by writing appropriate code.</p>
+<ol type="1">
+<li><p>What are the column names of the data frame?</p></li>
+<li><p>What are the row names of the data frame?</p></li>
+<li><p>Extract the first 6 rows of the data frame and print them to the console</p></li>
+<li><p>How many observations (i.e.&nbsp;rows) are in this data frame?</p></li>
+<li><p>Extract the last 6 rows of the data frame and print them to the console</p></li>
+<li><p>How many missing values are in the “Ozone” column of this data frame?</p></li>
+<li><p>What is the mean of the “Ozone” column in this dataset? Exclude missing values (coded as NA) from this calculation.</p></li>
+<li><p>Extract the subset of rows of the data frame where Ozone values are above 31 and Temp values are above 90.</p></li>
+</ol>
+</section>
 
 </main>
 <!-- /main column -->
