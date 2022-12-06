@@ -65,7 +65,7 @@ row.names(mtcars)
 
 ## Task 2
 
-For this task you have to use dataset from file `airquality.csv`. The description of the data you can find by the [link](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/airquality).
+For this task you have to use dataset `airquality`. The description of the data you can find by the [link](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/airquality).
 
 Example, how to work with the dataset. For instanse, we want to find month (column `Month`) with the highest mean temperature (`Temp`)
 
