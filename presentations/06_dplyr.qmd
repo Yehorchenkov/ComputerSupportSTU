@@ -1,0 +1,162 @@
+---
+title: "Data Manipulation with dplyr"
+format: pdf
+editor: source
+---
+
+This tutorial is partially based on [**Data Analysis and Visualization in R for Ecologists**](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html) by François Michonneau & Auriel Fournier.
+
+Data for the tutorial is taken from [**`dslab`** R package](https://cran.r-project.org/web/packages/dslabs/index.html)
+
+
+## Introduction
+
+Bracket subsetting is handy, but it can be cumbersome and difficult to read,
+especially for complicated operations. Enter **`dplyr`**. **`dplyr`** is a package for
+helping with tabular data manipulation. It pairs nicely with **`tidyr`** which enables you to swiftly convert between different data formats for plotting and analysis.
+
+The **`tidyverse`** package is an
+"umbrella-package" that installs **`tidyr`**, **`dplyr`**, and several other useful packages for data analysis, such as  **`ggplot2`**, **`tibble`**, etc.
+
+The **`tidyverse`** package tries to address 3 common issues that arise when doing data analysis in R:
+
+1. The results from a base R function sometimes depend on the type of data.
+2. R expressions are used in a non standard way, which can be confusing for new learners.
+3. The existence of hidden arguments having default operations that new learners are not aware
+  of.
+
+To use **`tidyverse`** package, you can type `install.packages("tidyverse")` straight into the console to install it. Then, type `library(tidyverse)` to load the package.
+
+## What is **`dplyr`**
+
+**`dplyr`** is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:
+
+* `mutate()` adds new variables that are functions of existing variables
+* `select()` picks variables based on their names.
+* `filter()` picks cases based on their values.
+* `summarise()` reduces multiple values down to a single summary.
+* `arrange()` changes the ordering of the rows.
+
+## Preparing data
+
+Loading libraries:
+
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(dplyr)
+library(dslabs)
+```
+
+Preparing and preview data
+
+```{r}
+data(gapminder)
+gapminder <- gapminder |> as_tibble()
+gapminder
+```
+
+Inspecting data
+```{r}
+glimpse(gapminder)
+```
+## Selecting columns and filtering rows
+
+To select columns of a data frame, use `select()`. The first argument
+to this function is the data frame (`gapminder`), and the subsequent
+arguments are the columns to keep.
+
+```{r}
+select(gapminder, country, year, population)
+```
+
+To select all columns *except* certain ones, put a "-" in front of
+the variable to exclude it.
+
+```{r}
+select(gapminder, -c(gdp, continent, region))
+```
+
+This will select all the variables in `gapminder` except `gdp`, `continent` and `region`.
+
+To choose rows based on a specific criterion, use `filter()`:
+
+```{r}
+filter(gapminder, year == 2016)
+```
+
+## Pipes
+
+What if you want to select and filter at the same time? There are three
+ways to do this: use intermediate steps, nested functions, or pipes.
+
+With intermediate steps, you create a temporary data frame and use
+that as input to the next function, like this:
+
+```{r}
+df_1 <- filter(gapminder, continent == "Europe")
+gapminder_sml <- select(df_1, country, year, gdp)
+```
+
+This is readable, but can clutter up your workspace with lots of objects that you have to name individually. With multiple steps, that can be hard to keep track of.
+
+You can also nest functions (i.e. one function inside of another), like this:
+
+```{r}
+surveys_sml <- select(filter(gapminder, continent == "Europe"), country, year, gdp)
+```
+
+This is handy, but can be difficult to read if too many functions are nested, as R evaluates the expression from the inside out (in this case, filtering, then selecting).
+
+The last option, *pipes*. Pipes let you take the output of one function and send it directly to the next, which is useful when you need to do many things to the same dataset.  Pipes in R look like ` |> ` or `%>%`
+with **`dplyr`**. If you use RStudio, you can type the pipe with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you have a PC or <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you have a Mac.
+
+```{r}
+gapminder |> 
+  filter(continent == "Europe") |> 
+  select(country, year, gdp)
+```
+
+If we want to create a new object with this smaller version of the data, we can assign it a new name:
+
+```{r}
+gapminder_sml <- gapminder |> 
+  filter(continent == "Europe") |> 
+  select(country, year, gdp)
+
+gapminder_sml
+```
+
+Note that the final data frame is the leftmost part of this expression.
+
+## Mutate
+
+Frequently you'll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we'll use `mutate()`.
+
+To create a new column of weight in kg:
+
+```{r}
+gapminder %>%
+  mutate(population_mln = round(population / 1000000, 2)) |> 
+  select(country, year, population, population_mln)
+```
+
+## Split-apply-combine data analysis with the `group_by()` and `summarize()` functions
+
+Many data analysis tasks can be approached using the *split-apply-combine* paradigm: split the data into groups, apply some analysis to each group, and then combine the results. Key functions of **`dplyr`** for this workflow are `group_by()` and `summarize()`.
+
+`group_by()` is often used together with `summarize()`, which collapses each group into a single-row summary of that group.  `group_by()` takes as arguments the column names that contain the **categorical** variables for which you want to calculate the summary statistics. So to compute the mean `population` by `country`:
+
+```{r, purl=FALSE}
+gapminder |> 
+  group_by(country) |> 
+  summarize(mean_population = mean(population, na.rm = TRUE)) |> 
+  mutate_if(is.numeric, round, 0)
+```
+
+## Counting
+
+When working with data, we often want to know the number of observations found for each factor or combination of factors. For this task, **`dplyr`** provides `count()`. For example, if we wanted to count the number of rows of data for each country, we would do:
+
+```{r, purl=FALSE}
+gapminder %>%
+    count(country)
+```
