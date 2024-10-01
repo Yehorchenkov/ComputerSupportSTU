@@ -1,7 +1,9 @@
 ---
 title: "Computer Support Practical Tasks"
-date: "11/22/2022"
-format: html
+date: "10/01/2024"
+format:
+  html:
+    embed-resources: true
 editor: source
 ---
 
@@ -15,14 +17,14 @@ Links for downloading programs:
 
 2. R Studio: <https://posit.co/download/rstudio-desktop/>
 
-The results of laboratory work must be placed in your repository on Github in the files `LabX.Rmd` (or `LabX.qmd` if you prefer to use quarto) and generated from it `LabX.html`, where X is the number of the laboratory in the form: **question**, **code**, **result** (if necessary). So, the file structure could looks like:
+The results of laboratory work must be placed in your repository on Github in the files `TaskX.qmd` (or `LabX.Rmd` if you prefer to use R markdown) and generated from it `TaskX.html`, where X is the number of the laboratory in the form: **question**, **code**, **result** (if necessary). So, the file structure could looks like:
 
 ```
 --ComputerSupportSTU
-  |--Lab1.Rmd
-  |--Lab1.html
+  |--Task1.Rmd
+  |--Task1.html
 ```
-
+Use a template for `qmd` document (file `template.qmd`) to generate correct html file
 
 Example of output:
 
@@ -38,7 +40,7 @@ row.names(mtcars)
 2.  Create new repository "ComputerSupportSTU"
 3.  In readme.md file add title a short repository description
 
-## Task 1
+## Task 1. Data Types
 
 1. Create variables with all atomic types. Atomic types: `character`, `numeric`, `integer`, `complex`, `logical`.
 
@@ -63,38 +65,49 @@ row.names(mtcars)
 
 7. Change column names of the `data frame`.
 
-## Task 2
 
-For this task you have to use dataset `airquality`. The description of the data you can find by the [link](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/airquality).
+## Task 2. Subsetting data. Working with NA
 
-Example, how to work with the dataset. For instanse, we want to find month (column `Month`) with the highest mean temperature (`Temp`)
-
+1. Create the next random vector:
 
 ```{r message=FALSE}
-library(dplyr)
-
-airquality |> 
-  group_by(Month) |> 
-  summarise(mean_temp = mean(Temp)) |> 
-  filter(mean_temp == max(mean_temp))
+v <- rnorm(50)
 ```
 
-You task is to answer the following questions about this data by writing appropriate code.
+For the vector print:
 
-1. What are the column names of the data frame?
+- 10th item,
+- items from 10th to 20th (including 20th item),
+- 10 items starting from 5th,
+- all items bigger than 0,
+- last 5 items.
 
-2. What are the row names of the data frame?
+2. Create the next data frame:
 
-3. Extract the first 6 rows of the data frame and print them to the console
+```{r message=FALSE}
+df <- 
+  data.frame(a = rnorm(50), b = 1:50, 
+             cc = sample(letters, 50, replace = TRUE))
 
-4. How many observations (i.e. rows) are in this data frame?
+```
 
-5. Extract the last 6 rows of the data frame and print them to the console
+For the data frame find and print:
 
-6. How many missing values are in the "Ozone" column of this data frame?
+- the last 10 rows,
+- 15th item of columns `cc`,
+- subset columns `a` and `b` and rows from 10th to 20th (including 20th),
+- a new vector from column `b`.
 
-7. What is the mean of the "Ozone" column in this dataset? Exclude missing values (coded as NA) from this calculation.
+3. Create the next random vector:
 
-8. Extract the subset of rows of the data frame where Ozone values are above 31 and Temp values are above 90.
+```{r}
+v_na <- rnorm(30)
+num_na <- sample(10, 1)
+v_na[sample(30, num_na)] <- NA
+```
 
+For this vector:
 
+- print all not NA items,
+- find how many NA values the vector has,
+- find `min` `max` and `mean` for the vector.
