@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-10-01">
+<meta name="dcterms.date" content="2024-10-14">
 
 <title>Computer Support Practical Tasks</title>
 <style>
@@ -3035,7 +3035,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 1, 2024</p>
+      <p class="date">October 14, 2024</p>
     </div>
   </div>
   
@@ -3053,10 +3053,13 @@ vertical-align: -.125em;
 <li><p>R: <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a></p></li>
 <li><p>R Studio: <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p></li>
 </ol>
-<p>The results of laboratory work must be placed in your repository on Github in the files <code>LabX.Rmd</code> (or <code>LabX.qmd</code> if you prefer to use quarto) and generated from it <code>LabX.html</code>, where X is the number of the laboratory in the form: <strong>question</strong>, <strong>code</strong>, <strong>result</strong> (if necessary). So, the file structure could looks like:</p>
+<p>The results of laboratory work must be placed in your repository on Github in the files <code>TaskX.qmd</code> (or <code>LabX.Rmd</code> if you prefer to use R markdown) and generated from it <code>TaskX.html</code>, where X is the number of the laboratory in the form: <strong>question</strong>, <strong>code</strong>, <strong>result</strong> (if necessary). So, the file structure could looks like:</p>
 <pre><code>--ComputerSupportSTU
-  |--Lab1.Rmd
-  |--Lab1.html</code></pre>
+  |--Task1.qmd
+  |--Task1.html
+  |--Task2.qmd
+  |--Task2.html</code></pre>
+<p>Use a template for <code>qmd</code> document (file <code>template.qmd</code>) to generate correct html file</p>
 <p>Example of output:</p>
 <ol type="1">
 <li>Print rownames of dataset <code>mtcars</code>.</li>
@@ -3171,6 +3174,36 @@ vertical-align: -.125em;
 <li>find how many NA values the vector has,</li>
 <li>find <code>min</code> <code>max</code> and <code>mean</code> for the vector.</li>
 </ul>
+</section>
+<section id="task-3.-exploring-a-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="task-3.-exploring-a-dataset">Task 3. Exploring a dataset</h2>
+<p>For this task you have to use dataset from file <code>airquality.csv</code>. The description of the data you can find by the <a href="https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/airquality">link</a>.</p>
+<p>Example, how to work with the dataset. For instanse, we want to find month (column <code>Month</code>) with highest mean temperature (<code>Temp</code>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month) <span class="sc">|&gt;</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_temp =</span> <span class="fu">mean</span>(Temp)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mean_temp <span class="sc">==</span> <span class="fu">max</span>(mean_temp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  Month mean_temp
+  &lt;int&gt;     &lt;dbl&gt;
+1     8      84.0</code></pre>
+</div>
+</div>
+<p>You task is to answer the following questions about this data by writing appropriate code.</p>
+<ol type="1">
+<li><p>What are the column names of the data frame?</p></li>
+<li><p>What are the row names of the data frame?</p></li>
+<li><p>Extract the first 6 rows of the data frame and print them to the console</p></li>
+<li><p>How many observations (i.e. rows) are in this data frame?</p></li>
+<li><p>Extract the last 6 rows of the data frame and print them to the console</p></li>
+<li><p>How many missing values are in the “Ozone” column of this data frame?</p></li>
+<li><p>What is the mean of the “Ozone” column in this dataset? Exclude missing values (coded as NA) from this calculation.</p></li>
+<li><p>Extract the subset of rows of the data frame where Ozone values are above 31 and Temp values are above 90.</p></li>
+</ol>
 </section>
 
 </main>
