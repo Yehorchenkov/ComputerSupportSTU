@@ -28,7 +28,7 @@ msleep <- read_csv("./data/msleep.csv", show_col_types = FALSE)
 
 ## Data. Mammals sleep
 
-Data: The **msleep** (mammals sleep) data set contains the sleeptimes and weights for a set of mammals and is available in the [dagdata](https://github.com/genomicsclass/dagdata) repository on github. This data set contains `r nrow(msleep)` rows and `r ncol(msleep)` variables.
+Data: The **msleep** (mammals sleep) data set contains the sleeptimes and weights for a set of mammals. It is part of the **ggplot2** package. This data set contains `r nrow(msleep)` rows and `r ncol(msleep)` variables.
 
 ```{r}
 #| echo: true
