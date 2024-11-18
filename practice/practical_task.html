@@ -3205,6 +3205,64 @@ vertical-align: -.125em;
 <li><p>Extract the subset of rows of the data frame where Ozone values are above 31 and Temp values are above 90.</p></li>
 </ol>
 </section>
+<section id="task-4.-functions" class="level2">
+<h2 class="anchored" data-anchor-id="task-4.-functions">Task 4. Functions</h2>
+<p>For this task you have to use dataset <a href="https://www.kaggle.com/datasets/thedevastator/airbnb-prices-in-european-cities">Airbnb Prices in European Cities</a> from Kaggle. The dataset consists of 20 csv files. You can find the dataset in the folder <code>/data/airbnb/</code>.</p>
+<p>This dataset provides a comprehensive look at Airbnb prices in some of the most popular European cities. Each listing is evaluated for various attributes such as room types, cleanliness and satisfaction ratings, bedrooms, distance from the city centre, and more to capture an in-depth understanding of Airbnb prices on both weekdays and weekends.</p>
+<p>You task is to write the following function:</p>
+<ol type="1">
+<li><strong><code>explore_city(file_path)</code></strong></li>
+</ol>
+<p>This function takes as an argument path to a one csv file and returns the data frame with the next columns:</p>
+<ul>
+<li><code>city_name</code>,</li>
+<li><code>day_type</code> with 2 options: <code>weekdays</code> or <code>weekends</code>,</li>
+<li><code>n_rows</code> with number of rows in the file,</li>
+<li><code>min_price</code> with min from <code>realSum</code>,</li>
+<li><code>avg_price</code> with average from <code>realSum</code>,</li>
+<li><code>max_price</code> with max from <code>realSum</code>,</li>
+<li><code>avg_satisfaction</code> with average from <code>guest_satisfaction_overall</code>.</li>
+</ul>
+<ol start="2" type="1">
+<li><strong><code>prepare_dataset(folder_path)</code></strong></li>
+</ol>
+<p>This function should:</p>
+<ul>
+<li>Read all the CSV files from the dataset.</li>
+<li>Add two new columns:
+<ul>
+<li><code>city</code>: containing the name of the city.</li>
+<li><code>day_type</code>: indicating whether the price corresponds to <code>weekdays</code> or <code>weekends</code>.</li>
+</ul></li>
+<li>Merge all the data into a single dataset.</li>
+<li>Save the merged dataset as a CSV file named <code>airbnb.csv</code>.</li>
+</ul>
+<ol start="3" type="1">
+<li><strong><code>t.test(city1, city2)</code></strong></li>
+</ol>
+<p>This function calculates statistical difference between means of prices (<code>realSum</code>) between two cities. Use the function <code>t.test(x, y)</code> from base R, where <code>x = city1$realSum</code> and <code>y = city2$realSum</code>. For data use merged data frame from <code>prepare_dataset()</code> function.</p>
+<blockquote class="blockquote">
+<p><strong>Hint:</strong> For extracting <strong>city name</strong> and <strong>day type</strong> from the file name you can use the next function:</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>extract_name_day_type <span class="ot">&lt;-</span> <span class="cf">function</span>(file_path) {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    file_path <span class="sc">|&gt;</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">basename</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_split_1</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">first</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_split_1</span>(<span class="st">&quot;_&quot;</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># example</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_name_day_type</span>(<span class="st">&quot;./data/airbnb/amsterdam_weekdays.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] &quot;amsterdam&quot; &quot;weekdays&quot; </code></pre>
+</div>
+</div>
+</section>
 
 </main>
 <!-- /main column -->
