@@ -191,8 +191,7 @@ library(dplyr)
 extract_name_day_type <- function(file_path) {
     file_path |> 
         basename() |>
-        str_split_1("\\.") |>
-        first() |>
+        tools::file_path_sans_ext() |> 
         str_split_1("_")
 }
 
