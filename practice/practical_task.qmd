@@ -198,3 +198,24 @@ extract_name_day_type <- function(file_path) {
 # example
 extract_name_day_type("./data/airbnb/amsterdam_weekdays.csv")
 ```
+
+## Task 5: Visualization
+
+Using the dataset from **Task 4.2** (`airbnb.csv`), create **four visualizations** using both the **base plotting system** and **ggplot2**. You may use arbitrary subsets of the data for this task. Ensure that all visualizations include:  
+- A title,  
+- Annotated axes,  
+- A legend (if needed).  
+
+### Instructions:  
+1. **Histogram**:  
+   Create a histogram using the `hist` function from the **base plotting system**.  
+
+2. **Scatter Plot**:  
+   Create a scatter plot using **ggplot2** with the `geom_point` geometry. Incorporate a third variable by using different colors to represent it.  
+
+3. **Boxplot**:  
+   Create a boxplot using **ggplot2** with the `geom_boxplot` geometry.  
+
+4. **Custom Plot**:  
+   Create an additional plot of your choice using either the **base plotting system** or **ggplot2**.  
+

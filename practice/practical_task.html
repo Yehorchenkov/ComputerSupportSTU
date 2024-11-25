@@ -3180,12 +3180,14 @@ vertical-align: -.125em;
 <p>For this task you have to use dataset from file <code>airquality.csv</code>. The description of the data you can find by the <a href="https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/airquality">link</a>.</p>
 <p>Example, how to work with the dataset. For instanse, we want to find month (column <code>Month</code>) with highest mean temperature (<code>Temp</code>)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">|&gt;</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month) <span class="sc">|&gt;</span> </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_temp =</span> <span class="fu">mean</span>(Temp)) <span class="sc">|&gt;</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mean_temp <span class="sc">==</span> <span class="fu">max</span>(mean_temp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;dplyr&#39; was built under R version 4.4.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_temp =</span> <span class="fu">mean</span>(Temp)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mean_temp <span class="sc">==</span> <span class="fu">max</span>(mean_temp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   Month mean_temp
@@ -3245,22 +3247,45 @@ vertical-align: -.125em;
 <p><strong>Hint:</strong> For extracting <strong>city name</strong> and <strong>day type</strong> from the file name you can use the next function:</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>extract_name_day_type <span class="ot">&lt;-</span> <span class="cf">function</span>(file_path) {</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    file_path <span class="sc">|&gt;</span> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">basename</span>() <span class="sc">|&gt;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        tools<span class="sc">::</span><span class="fu">file_path_sans_ext</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_split_1</span>(<span class="st">&quot;_&quot;</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># example</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_name_day_type</span>(<span class="st">&quot;./data/airbnb/amsterdam_weekdays.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;stringr&#39; was built under R version 4.4.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>extract_name_day_type <span class="ot">&lt;-</span> <span class="cf">function</span>(file_path) {</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    file_path <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">basename</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        tools<span class="sc">::</span><span class="fu">file_path_sans_ext</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_split_1</span>(<span class="st">&quot;_&quot;</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># example</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_name_day_type</span>(<span class="st">&quot;./data/airbnb/amsterdam_weekdays.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;amsterdam&quot; &quot;weekdays&quot; </code></pre>
 </div>
 </div>
+</section>
+<section id="task-5-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="task-5-visualization">Task 5: Visualization</h2>
+<p>Using the dataset from <strong>Task 4.2</strong> (<code>airbnb.csv</code>), create <strong>four visualizations</strong> using both the <strong>base plotting system</strong> and <strong>ggplot2</strong>. You may use arbitrary subsets of the data for this task. Ensure that all visualizations include:<br>
+- A title,<br>
+- Annotated axes,<br>
+- A legend (if needed).</p>
+<section id="instructions" class="level3">
+<h3 class="anchored" data-anchor-id="instructions">Instructions:</h3>
+<ol type="1">
+<li><p><strong>Histogram</strong>:<br>
+Create a histogram using the <code>hist</code> function from the <strong>base plotting system</strong>.</p></li>
+<li><p><strong>Scatter Plot</strong>:<br>
+Create a scatter plot using <strong>ggplot2</strong> with the <code>geom_point</code> geometry. Incorporate a third variable by using different colors to represent it.</p></li>
+<li><p><strong>Boxplot</strong>:<br>
+Create a boxplot using <strong>ggplot2</strong> with the <code>geom_boxplot</code> geometry.</p></li>
+<li><p><strong>Custom Plot</strong>:<br>
+Create an additional plot of your choice using either the <strong>base plotting system</strong> or <strong>ggplot2</strong>.</p></li>
+</ol>
+</section>
 </section>
 
 </main>
