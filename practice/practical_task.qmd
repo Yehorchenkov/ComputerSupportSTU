@@ -178,9 +178,9 @@ You task is to write the following function:
   - Merge all the data into a single dataset.
   - Save the merged dataset as a CSV file named `airbnb.csv`.
 
-3. **`t.test(city1, city2)`**
+3. **`compare_means(city1, city2)`**
   
-  This function calculates statistical difference between means of prices (`realSum`) between two cities. Use the function `t.test(x, y)` from base R, where `x = city1$realSum` and `y = city2$realSum`. For data use merged data frame from `prepare_dataset()` function.
+  This function calculates statistical difference between means of prices (`realSum`) between two cities. Use the function `t.test(x, y)` from base R, where `x = city1$realSum` and `y = city2$realSum`. For data use merged data frame `airbnb.csv` from `prepare_dataset()` function.
 
 >**Hint:** For extracting **city name** and **day type** from the file name you can use the next function:
 
