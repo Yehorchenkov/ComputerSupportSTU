@@ -1,0 +1,205 @@
+---
+title: "Loop Functions"
+institute: "Department of Spatial Planning"
+author: "Dr.Sc. Oleksii Yehorchenkov"
+format:
+    revealjs:
+        embed-resources: true
+        transition: none
+        slide-number: true
+        theme: default
+title-slide-attributes:
+    data-background-image: images/STU-nfh_full.png, images/EN_Funded_by_the_European_Union_RGB_POS.png
+    data-background-size: 40%, 15%
+    data-background-position: 2% 2%, 50% 98%
+---
+
+## Looping on the Command Line
+
+Writing for, while loops is useful when programming but not particularly easy when working interactively on the command line. There are some functions which implement looping to make life easier.
+
+- `lapply`: Loop over a list and evaluate a function on each element 
+
+- `sapply`: Same as `lapply` but try to simplify the result
+
+- `apply`: Apply a function over the margins of an array
+
+- `tapply`: Apply a function over subsets of a vector
+
+- `mapply`: Multivariate version of `lapply`
+
+An auxiliary function `split` is also useful, particularly in conjunction with `lapply`.
+
+## lapply
+
+`lapply` takes three arguments: (1) a list `X`; (2) a function (or the
+name of a function) `FUN`; (3) other arguments via its
+... argument. If `X` is not a list, it will be coerced to a list using
+`as.list`.
+
+```{r}
+#| echo: true
+
+lapply
+```
+
+The actual looping is done internally in C code.
+
+## lapply
+
+`lapply` always returns a list, regardless of the class of the input.
+
+```{r}
+#| echo: true
+
+x <- list(a = 1:5, b = rnorm(10))
+lapply(x, mean)
+```
+
+## lapply
+
+```{r}
+#| echo: true
+
+x <- 1:4
+lapply(x, runif)
+```
+
+## lapply
+
+```{r}
+#| echo: true
+
+x <- 1:4
+lapply(x, runif, min = 0, max = 10)
+```
+
+
+## sapply
+
+`sapply` will try to simplify the result of `lapply` if possible.
+
+- If the result is a list where every element is length 1, then a vector is returned
+
+- If the result is a list where every element is a vector of the same length (> 1), a matrix is returned.
+
+- If it can’t figure things out, a list is returned
+
+
+## sapply
+
+```{r}
+#| echo: true
+
+x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
+lapply(x, mean)
+```
+
+The output from `sapply` function:
+
+```{r}
+#| echo: true
+
+sapply(x, mean)
+```
+
+## lapply
+
+```{r}
+#| echo: true
+
+x <- data.frame(a = 1, b = "a", c = 23, d = TRUE, e = "c")
+
+sapply(x, is.numeric)
+```
+
+## anonymous functions
+
+`lapply` and friends make heavy use of _anonymous_ functions.
+
+```{r}
+#| echo: true
+
+numbers_list <- list(a = 1:5, b = 6:10, c = 11:15)
+
+stats <- sapply(numbers_list, function(x) {
+    c(mean = mean(x),
+      sum = sum(x),
+      std = sd(x))
+})
+
+print(stats)
+```
+
+## apply
+
+```{r}
+#| echo: true
+
+str(apply)
+```
+
+- `X` is an array
+- `MARGIN` is an integer vector indicating which margins should be “retained”. 
+- `FUN` is a function to be applied
+- ... is for other arguments to be passed to `FUN`
+
+## apply
+
+apply by columns
+
+```{r}
+#| echo: true
+
+x <- matrix(rnorm(50, 10), 10, 5)
+apply(x, 2, mean)
+```
+apply by rows
+
+```{r}
+#| echo: true
+
+apply(x, 1, sum)
+```
+
+## col/row sums and means
+
+For sums and means of matrix dimensions, we have some shortcuts.
+
+- `rowSums` = `apply(x, 1, sum)`
+- `rowMeans` = `apply(x, 1, mean)`
+- `colSums` = `apply(x, 2, sum)`
+- `colMeans` = `apply(x, 2, mean)`
+
+## Other Ways to Apply
+
+Quantiles of the rows of a matrix.
+
+```{r}
+#| echo: true
+
+x <- matrix(rnorm(50, 10), 10, 5)
+apply(x, 1, quantile, probs = c(0.25, 0.75))
+```
+
+## apply
+
+Average matrix in an array
+
+```{r}
+#| echo: true
+
+a <- array(rnorm(2 * 2 * 10), c(2, 2, 10))
+apply(a, c(1, 2), mean)
+```
+
+```{r}
+#| echo: true
+
+rowMeans(a, dims = 2)
+```
+
+## References
+
+This presentation is based on Coursera course [R Programming](https://www.coursera.org/learn/r-programming) from John Hopkins University
+
